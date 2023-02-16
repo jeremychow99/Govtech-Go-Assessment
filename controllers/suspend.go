@@ -21,7 +21,6 @@ func Suspend(c *gin.Context) {
 	var dbStudent models.Student
 	initializers.DB.Preload("student").Where("email = ?", body.Student).First(&dbStudent)
 
-	fmt.Println(dbStudent.Suspended)
 	// check if input student email exists
 	if dbStudent.Email == "" {
 		fmt.Println("NO EXIST")

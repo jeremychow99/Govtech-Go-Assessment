@@ -7,6 +7,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 )
+
 // helper function to get common students
 func intersection(arr1, arr2 []string) []string {
 	out := []string{}
@@ -44,20 +45,26 @@ func Retrieve(c *gin.Context) {
 		}
 
 		initializers.DB.Model(&teacher).Association("AssignedStudents").Find(&assignedStudents)
+		testArr := []string{}
 		if index == 0 {
 			for i := range assignedStudents {
 				fmt.Println(i)
 				fmt.Println(assignedStudents[i])
 				responseArr = append(responseArr, assignedStudents[i].Email)
 			}
+			fmt.Println("---first response arr---")
+			fmt.Println(responseArr)
 		} else {
-			testArr := []string{}
+			// testArr := []string{}
 			for i := range assignedStudents {
 				fmt.Println(i)
 				fmt.Println(assignedStudents[i])
 				testArr = append(testArr, assignedStudents[i].Email)
-				responseArr = intersection(responseArr, testArr)
 			}
+			fmt.Println("ARRAYS AS FOLLOWS")
+			fmt.Println(testArr)
+			fmt.Println(responseArr)
+			responseArr = intersection(responseArr, testArr)
 			// fmt.Println(index)
 			// fmt.Println(teacher)
 			// fmt.Println(assignedStudents)

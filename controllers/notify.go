@@ -4,8 +4,6 @@ import (
 	"example/govtech-test/initializers"
 	"example/govtech-test/models"
 	"fmt"
-
-	// "fmt"
 	"strings"
 
 	"github.com/gin-gonic/gin"
@@ -31,7 +29,7 @@ func Notify(c *gin.Context) {
 		return
 	}
 
-	// check if there is a valid notification, and if list of students are all valid
+	// get arr of students
 	studentArr := strings.Split(body.Notification, " ")[1:]
 	notification := strings.Split(body.Notification, " ")[0]
 	fmt.Println(studentArr)
@@ -46,10 +44,24 @@ func Notify(c *gin.Context) {
 			resArr = append(resArr, assignedStudents[i].Email)
 		}
 	}
+	fmt.Println(resArr)
 	// start by getting list of students registered and not suspended
 	for i := range studentArr {
-		fmt.Println(studentArr[i])
+		// check if start with @
+		if studentArr[i][0:1] == "@" {
+			var dbStudent models.Student
+			fmt.Println(studentArr[i])
+			initializers.DB.Preload("student").Where("email = ?", studentArr[i][1:]).First(&dbStudent)
+
+			// then check if student exists and not suspended
+			if dbStudent.Email != "" && dbStudent.Suspended == false {
+				resArr = append(resArr, dbStudent.Email)
+			}
+
+		}
 	}
-	// check input students if they exist and are not suspended
 	// return valid students in JSON arr
+	c.JSON(responseCode, gin.H{
+		"recipients": resArr,
+	})
 }
