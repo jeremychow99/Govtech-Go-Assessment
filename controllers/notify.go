@@ -8,7 +8,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 )
-// helper function to remove duplicates
+// helper function to remove
 func removeDuplicates(s []string) []string {
 	bucket := make(map[string]bool)
 	var result []string
@@ -29,7 +29,6 @@ func Notify(c *gin.Context) {
 		Notification string `json:"notification"`
 	}
 	c.Bind(&body)
-
 	// check if teacher valid, exists in DB
 	var teacher models.Teacher
 	initializers.DB.Preload("teacher").Where("email = ?", body.Teacher).First(&teacher)
@@ -57,8 +56,7 @@ func Notify(c *gin.Context) {
 			resArr = append(resArr, assignedStudents[i].Email)
 		}
 	}
-
-	// for students not registered with the teacher
+	// start by getting list of students registered and not suspended
 	for i := range studentArr {
 		// check if start with @
 		if studentArr[i][0:1] == "@" {

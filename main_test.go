@@ -60,6 +60,7 @@ func TestRegister(t *testing.T) {
 	t.Log(resp.Result().StatusCode)
 	t.Log(resp.Body)
 
+	// if one or more alr registered, should be 409, if success then 204
 	assert.Equal(t, 409, resp.Result().StatusCode)
 }
 
@@ -83,5 +84,11 @@ func TestSuspend(t *testing.T) {
 	t.Log(resp.Result().StatusCode)
 	t.Log(resp.Body)
 
+	// if student already suspended code is 409, if success then 204
 	assert.Equal(t, 409, resp.Result().StatusCode)
 }
+
+// func TestRetrieve(){
+// 	// if success code 200, on error should be 400
+// 	assert.Equal(t, 200, resp.Result().StatusCode)
+// }

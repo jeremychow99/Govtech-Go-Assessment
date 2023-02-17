@@ -19,7 +19,7 @@ func main() {
 	r.POST("/api/register", controllers.Register)
 	r.GET("/api/commonstudents", controllers.Retrieve)
 	r.POST("/api/suspend", controllers.Suspend)
-	r.POST("/api/retrievefornotifications",controllers.Notify)
+	r.POST("/api/retrievefornotifications", controllers.Notify)
 
 	r.Run()
 }

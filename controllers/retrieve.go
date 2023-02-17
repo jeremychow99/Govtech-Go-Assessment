@@ -52,10 +52,10 @@ func Retrieve(c *gin.Context) {
 				fmt.Println(assignedStudents[i])
 				responseArr = append(responseArr, assignedStudents[i].Email)
 			}
-			fmt.Println("---first response arr---")
+
 			fmt.Println(responseArr)
 		} else {
-			// testArr := []string{}
+
 			for i := range assignedStudents {
 				fmt.Println(i)
 				fmt.Println(assignedStudents[i])
@@ -65,10 +65,7 @@ func Retrieve(c *gin.Context) {
 			fmt.Println(testArr)
 			fmt.Println(responseArr)
 			responseArr = intersection(responseArr, testArr)
-			// fmt.Println(index)
-			// fmt.Println(teacher)
-			// fmt.Println(assignedStudents)
-			// fmt.Println(elem)
+
 		}
 	}
 
