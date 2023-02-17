@@ -1,4 +1,5 @@
 package main
+
 // ** UNIT TESTS NOT WORKING, PLEASE IGNORE **
 // ** UNIT TESTS NOT WORKING, PLEASE IGNORE **
 // ** UNIT TESTS NOT WORKING, PLEASE IGNORE **
@@ -6,19 +7,36 @@ import (
 	"bytes"
 	"encoding/json"
 	"example/govtech-test/controllers"
+	"fmt"
+	"log"
 	"net/http"
 	"net/http/httptest"
+	"os"
 	"testing"
 
 	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/assert"
+	"gorm.io/driver/mysql"
+	"gorm.io/gorm"
 )
+
+func TestMain(m *testing.M) {
+	var DB *gorm.DB
+	var err error
+	dsn := os.Getenv("DB_URL")
+	DB, err = gorm.Open(mysql.Open(dsn), &gorm.Config{})
+	if err != nil {
+		log.Fatal("failed to connect database")
+	}
+	fmt.Println(DB)
+	os.Exit(m.Run())
+}
 
 func TestRegister(t *testing.T) {
 	server := gin.Default()
 
 	input := struct {
-		Teacher string `json:"teacher"`
+		Teacher  string   `json:"teacher"`
 		Students []string `json:"students"`
 	}{
 		Teacher: "teacher4234242@gmail.com",
@@ -45,13 +63,13 @@ func TestRegister(t *testing.T) {
 	assert.Equal(t, 409, resp.Result().StatusCode)
 }
 
-func TestSuspend(t *testing.T){
+func TestSuspend(t *testing.T) {
 	server := gin.Default()
 
 	input := struct {
 		Student string `json:"student"`
 	}{
-		Student: "student69@gmail.com",
+		Student: "student70@gmail.com",
 	}
 
 	// handler

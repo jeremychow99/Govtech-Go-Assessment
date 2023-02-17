@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	// "example/govtech-test/initializers"
 	"example/govtech-test/initializers"
 	"example/govtech-test/models"
 	"fmt"
@@ -29,7 +28,7 @@ func Suspend(c *gin.Context) {
 		})
 	} else {
 		if dbStudent.Suspended == false {
-			//update suspended status to true
+			// update suspended status to true
 			initializers.DB.Model(&dbStudent).Where("suspended = ?", false).Update("suspended", true)
 		} else {
 			// if already suspended

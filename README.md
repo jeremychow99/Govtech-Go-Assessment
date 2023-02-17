@@ -11,8 +11,8 @@ Requirements: Golang installed, and a MySQL database to connect to.
     DB_URL=user:pass@tcp(127.0.0.1:3306)/dbname?charset=utf8mb4&parseTime=True&loc=Local
     ```
 3. For example, I used a MySQL schema with dbname: test123, user: root, pass: root, so my DB_URL was `root:root@tcp(127.0.0.1:3306)/test123?charset=utf8mb4&parseTime=True&loc=Local`.
-4. From folder root, run `go run migrate/migrate.go` to create database tables.
-5. Run `go run main.go`.
+4. In folder root, run `go run main.go` to auto download dependencies.
+5. In folder root, open another terminal/CLI instance, run `go run migrate/migrate.go` to create database tables.
 6. API ready to be used.
 
 ## Some Notes
