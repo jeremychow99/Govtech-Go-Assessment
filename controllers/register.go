@@ -3,7 +3,6 @@ package controllers
 import (
 	"example/govtech-test/initializers"
 	"example/govtech-test/models"
-	"fmt"
 
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
@@ -50,8 +49,6 @@ func Register(c *gin.Context) {
 			student.Suspended = dbStudent.Suspended
 		}
 		// check for association
-		fmt.Println(assignedStudents)
-
 		for i := range assignedStudents {
 			if assignedStudents[i].Email == student.Email {
 				responseCode = 409
@@ -62,10 +59,6 @@ func Register(c *gin.Context) {
 		}
 
 		initializers.DB.Model(&teacher).Association("AssignedStudents").Append([]*models.Student{&student})
-
-
-
-
 		initializers.DB.Session(&gorm.Session{FullSaveAssociations: true}).Updates(&teacher)
 	}
 

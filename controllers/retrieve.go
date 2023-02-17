@@ -53,17 +53,13 @@ func Retrieve(c *gin.Context) {
 				responseArr = append(responseArr, assignedStudents[i].Email)
 			}
 
-			fmt.Println(responseArr)
 		} else {
 
 			for i := range assignedStudents {
-				fmt.Println(i)
 				fmt.Println(assignedStudents[i])
 				testArr = append(testArr, assignedStudents[i].Email)
 			}
-			fmt.Println("ARRAYS AS FOLLOWS")
-			fmt.Println(testArr)
-			fmt.Println(responseArr)
+
 			responseArr = intersection(responseArr, testArr)
 
 		}
